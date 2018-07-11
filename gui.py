@@ -8,6 +8,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -44,6 +45,5 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "FMCW Radar - TEL236"))
         self.pushButton.setText(_translate("MainWindow", "Mostrar en frecuencia (LIVE)"))
         self.pushButton_2.setText(_translate("MainWindow", "Mostrar visor (LIVE)"))
-        self.pushButton_3.setText(_translate("MainWindow", "Mostrar detalle"))
+        self.pushButton_3.setText(_translate("MainWindow", "Mostrar en tiempo (LIVE)"))
         self.pushButton_4.setText(_translate("MainWindow", "Salir"))
-
