@@ -59,7 +59,7 @@ class FMCWoperations:
         self.win.setWindowTitle('Frecuencia(LIVE) - TEL236')
         # print(sd.query_devices())
         self.p1 = self.win.addPlot()
-        self.p1.setYRange(0, 1024, padding=0)
+        # self.p1.setYRange(0, 1024, padding=0)
         self.curva1 = self.p1.plot()
         self.y1 = np.zeros(1024, dtype=float)
         print(self.win.setAntialiasing(True))
