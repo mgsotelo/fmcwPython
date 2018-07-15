@@ -148,5 +148,3 @@ class FMCWoperations:
         else:
             self.y2[self.contador3] = data
             self.contador3 += 1
-        
-        
