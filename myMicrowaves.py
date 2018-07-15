@@ -31,14 +31,14 @@ class AudioThread(QtCore.QThread):
     def __init__(self, *args, **kwargs):
         QtCore.QThread.__init__(self, *args, **kwargs)
         self.fs = 44100
-        self.stream = sd.InputStream(samplerate=self.fs, channels=1, device=0)
+        self.stream = sd.InputStream(samplerate=self.fs, channels=2, device=0)
         # print(self.stream)
 
     def run(self):
         with self.stream:
             while True:
                 data, overflow = self.stream.read(1)
-                if data:
+                if data.any():
                     datos = data[0]
                     self.dataChanged.emit(np.float(datos[0]))
         
@@ -105,7 +105,7 @@ class FMCWoperations:
         
         #################################################################
         # parametros para modificar :D
-        self.BW = 510e6  # ancho de banda
+        self.BW = 490e6  # ancho de banda
         self.T = self.numMuestras / self.thread2.fs  # periodo de muestreo
         self.Vg = 3e8  # velocidad de la luz aprox
         #################################################################
@@ -121,8 +121,8 @@ class FMCWoperations:
             # print(self.T + " " + self.Vg)
             # print(f[self.max_index])
             self.R1 = (self.T * self.Vg * f[self.max_index]) / (2 * self.BW)
-            # print("frecuencia = ", f[self.max_index], " distancia = ", self.R1,
-            #       " amplitud = ", Pwelch_spec[self.max_index])
+            # print("frecuencia = ", f[self.max_index], " distancia = "
+            # , self.R1, " amplitud = ", Pwelch_spec[self.max_index])
             self.xd[0] = self.R1
             # print(self.xd)
             self.p_dis.setData(self.xd)
