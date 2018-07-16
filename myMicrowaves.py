@@ -58,6 +58,13 @@ class FMCWoperations:
         self.y1 = np.zeros(self.numMuestras, dtype=float)
         self.xd = np.zeros(1)
 
+        #################################################################
+        # parametros para modificar :D
+        self.BW = 490e6  # ancho de banda
+        self.T = self.numMuestras / self.thread2.fs  # periodo de muestreo
+        self.Vg = 3e8  # velocidad de la luz aprox
+        #################################################################
+
     def frequencyPlot(self):
         self.thread1.start()
         self.thread1.dataChanged.connect(self.updateFrequencyPlot)
@@ -102,13 +109,6 @@ class FMCWoperations:
         self.p3.setYRange(0, 15, padding=0)
         self.p3.showGrid(True, True, 0.7)
         self.R1 = 0  # la distancia que queremos hallar
-        
-        #################################################################
-        # parametros para modificar :D
-        self.BW = 490e6  # ancho de banda
-        self.T = self.numMuestras / self.thread2.fs  # periodo de muestreo
-        self.Vg = 3e8  # velocidad de la luz aprox
-        #################################################################
 
     def updateFrequencyDist(self, data):
         fs = self.thread2.fs
@@ -121,8 +121,8 @@ class FMCWoperations:
             # print(self.T + " " + self.Vg)
             # print(f[self.max_index])
             self.R1 = (self.T * self.Vg * f[self.max_index]) / (2 * self.BW)
-            # print("frecuencia = ", f[self.max_index], " distancia = "
-            # , self.R1, " amplitud = ", Pwelch_spec[self.max_index])
+            print("frecuencia = ", f[self.max_index], " distancia = ",
+                  self.R1, " amplitud = ", Pwelch_spec[self.max_index])
             self.xd[0] = self.R1
             # print(self.xd)
             self.p_dis.setData(self.xd)
@@ -145,6 +145,7 @@ class FMCWoperations:
             self.y2 = np.zeros(self.numMuestras, dtype=float)
             self.contador3 = 0
             # self.curva2.setData(self.y2)
+            # TO DO time plotting :(
         else:
             self.y2[self.contador3] = data
             self.contador3 += 1
